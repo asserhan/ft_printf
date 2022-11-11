@@ -6,50 +6,51 @@
 /*   By: hasserao <hasserao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 18:31:01 by hasserao          #+#    #+#             */
-/*   Updated: 2022/11/10 21:26:20 by hasserao         ###   ########.fr       */
+/*   Updated: 2022/11/11 16:59:36 by hasserao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void ft_putchar(char c, int *len)
+void	ft_putchar(char c, int *len)
 {
 	write (1, &c, 1);
 	(*len)++;
 }
 
-void ft_putstr(char *s ,int *len)
+void	ft_putstr(char *s, int *len)
 {
-	int i;
-	i = 0;
+	int	i;
 
+	i = 0;
 	if (s == NULL)
-		ft_putstr("(null)",len);
+		ft_putstr("(null)", len);
 	while (s && s[i])
 	{
-		ft_putchar(s[i],len);
+		ft_putchar(s[i], len);
 		i++;
 	}
 }
 
-void ft_putnbr_address(unsigned long long n,int *len)
+void	ft_putnbr_address(unsigned long long n, int *len)
 {
-	char *base = "0123456789abcdef";
-	
+	char	*base ;
+
+	base = "0123456789abcdef";
 	if (n < 16)
-		ft_putchar(base[n],len);
+		ft_putchar(base[n % 16], len);
 	else
 	{
-		ft_putnbr_address(n / 16,len);
-		ft_putnbr_address(n % 16,len);
+		ft_putnbr_address(n / 16, len);
+		ft_putnbr_address(n % 16, len);
 	}
 }
 
-void ft_print_address(unsigned long long n,int *len)
+void	ft_print_address(unsigned long long n, int *len)
 {
-	ft_putstr("0x",len);
+	ft_putstr("0x", len);
 	if (n == 0)
-		ft_putchar('0',len);
+		ft_putchar('0', len);
 	else
-		ft_putnbr_address(n,len);
+		ft_putnbr_address(n, len);
 }
